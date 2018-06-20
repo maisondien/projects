@@ -1,0 +1,148 @@
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+      th{
+        padding: 0 ;
+        border: solid;
+      }
+      td{
+        border: solid 1px;
+          padding: 0;
+          margin: 0;
+      }
+      tr{
+        padding: 10px;
+      }
+      input{
+        width: 300px;
+      border-radius: 5px;
+      height: 25px;
+      }
+
+      td{
+            padding: 20px;
+
+      }
+
+      .outputImage{
+        height:180;
+        width:200;
+        margin-left:20
+      }
+      p{
+        color: red;
+        font-weight: bold;
+      }
+      body {
+        padding: 50px;
+        font: 14px "Roboto", Arial, sans-serif;
+      }
+    .errors {
+    padding: 5px;
+    margin-bottom: 10px;
+    min-width: 200px;
+    display: inline-block;
+
+  }
+
+  .errors ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .success {
+    background: #80cca0;
+    padding: 5px;
+  }
+    </style>
+</head>
+<body>
+    <h1><%= title %></h1>
+
+    <%if (success) { %>
+        <section class="success">
+               <h2>Successful Validation!</h2>
+           </section>
+
+      <% } else { %>
+      <% if (errors) {%>
+           <section class="errors">
+               <ul>
+                   <% errors.forEach(function(error){ %>
+                       <li><p><%=error.msg%></p></li>
+                <% }); %>
+               </ul>
+           </section>
+         <% }
+       } %>
+    <table>
+      <td>
+    <div class='navbar'>
+    <p>
+        <a href='/showdata'>INSERT PRO</a></p><br>
+        <div>
+
+    <form id="insdata" method="post" action="/insertpro" enctype="multipart/form-data">
+                <div>
+                      <ul><label>Name:</label><br>
+                        <input id="inName" type="text" name="inName"></ul>
+                        <ul><label>Image:</label><br>
+                          <input id="inImage" type="file" name="inImage" onchange="loadFile(event)"></ul>
+                          <ul><img id="output"/></ul>
+                          <ul><label>Price:</label><br>
+                            <input id="inPrice" type="text" name="inPrice"></ul>
+                            <ul><label>Brand:</label>&nbsp
+                            <select name="slbrand" >
+                              <% for (var i = 0; i < databr.length; i++) { %>
+                              <option name="optbrand" value="<%= databr[i].id %>" selected="selected"><%= databr[i].name %></option>
+                                <% } %>
+                            </select></ul>
+                            <ul><label>Catagory:</label>&nbsp
+                            <select name="myselect" >
+                              <% for (var i = 0; i < datacate.length; i++) { %>
+                              <option name="myselect" value="<%= datacate[i].id %>" selected="selected"><%= datacate[i].name %></option>
+                                <% } %>
+                            </select></ul>
+
+                      <ul>  <input type="submit" value="Submit" /> </ul>
+
+                  </div>
+
+            </form>
+        </div>
+      </td>
+
+</body>
+<script>
+var loadFile = function(event) {
+   var output = document.getElementById('output');
+   output.src = URL.createObjectURL(event.target.files[0]);
+   if(output){
+
+     output.classList.add("outputImage");
+   }
+
+ };
+ function myFunction() {
+    var iname, iprice, ifile, text;
+    // Get the value of the input field with id="numb"
+  iuser  = document.getElementById("username").value;
+  ipass = document.getElementById("password").value;
+  iemail  = document.getElementById("email").value;
+    // If x is Not a Number or less than one or greater than 10
+   if ( iuser=="" || ipass=="" || iemail =="") {
+
+      text = "Input not valid";
+    }
+   else {
+        text = "Input OK";
+    }
+    document.getElementById("demo").innerHTML = text;
+         confirm("Insert product successful ");
+ }
+
+        </script>
+</html>

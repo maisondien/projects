@@ -1,0 +1,119 @@
+<html>
+<head>
+
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+      th{
+        padding: 0 ;
+        border: solid;
+      }
+      td{
+        border: solid 1px;
+          padding: 5;
+          margin: 0;
+      }
+      tr{
+        padding: 10px;
+      }
+.hide{
+  display: none;
+}
+img{
+  position: relative;
+  padding: 10px;
+}
+.navbar{
+  margin-bottom: : 20px;
+  position: relative;
+
+}
+    </style>
+
+</head>
+<body >
+
+    <div class="wrap" style="width:1200 ; margin: 0 auto; height: 100%">
+          <h1><%= title %></h1>
+<div class="wrap" style="width:1200 ; margin-bottom: 10px; background-color: #009688; height: 80px"></div>
+    <div class='navbar'>
+    <p>
+        <a href='/insertpro'>NEW PRODUCTS</a> </p>
+       <table >
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Thumbnail</th>
+                        <th>Price</th>
+                        <th>Catagory</th>
+                        <th>Function</th>
+                      </tr>
+                      <tr>
+                          <% for (var i = 0; i < data.length; i++) { %>
+                            <tr>
+                              <td><%= data[i].id %></td>
+                              <td><%= data[i].product_name %></td>
+                                <td><%= data[i].image%></td>
+                                <td><img src="http://localhost:4000/<%=data[i].image%>" height="100" width="100"></td>
+                              <td><%= data[i].price %></td>
+                              <td><%= data[i].catagory %></td>
+                              <td>
+
+                                <input class="myButton" type="Submit" value="Edit" onClick="parent.location='http://localhost:4000/editpro/<%= data[i].id %>'"/>
+                                <form method="post" action="/showdata/product/<%= data[i].id %>" style="float:right">
+                                <input id="delbutton" type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete id = <%= data[i].id %> ?') " />
+                              </form>
+                              </td>
+                            </tr>
+                           <% } %>
+                         </tr>
+                    </table>
+    </p>
+
+    </div>
+      <div class='navbar'>
+        <p>
+            <a href='/insert'>NEW USERS</a>  </p>
+           <table >
+                          <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Password</th>
+                            <th>Email</th>
+                              <th>Function</th>
+                             <tr>
+                              <% for (var i = 0; i < datauser.length; i++) { %>
+                                <tr>
+                                  <td><%= datauser[i].user_id %></td>
+                                  <td><%= datauser[i].name %></td>
+                                  <td><%= datauser[i].password%></td>
+                                  <td><%= datauser[i].email %></td>
+                                  <td>
+                                           	<input type="button" name="edit" value="Edit" onClick="parent.location='http://localhost:4000/edit/<%=datauser[i].user_id%>'" />
+                                              <form method="post" action="/showdata/users/<%= datauser[i].user_id %>" style="float:right">
+                          						<input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete id = <%= datauser[i].user_id %> ?') " />
+                                    </form>
+
+                                  </td>
+                                </tr>
+                               <% } %>
+                        </table>
+
+      </div>
+
+      <div id = "products_pop">
+
+      </div>
+      </div>
+</body>
+<script>
+window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+}
+</script>
+</html>

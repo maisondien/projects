@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+      th{
+        padding: 0 ;
+        border: solid;
+      }
+      td{
+        border: solid 1px;
+          padding: 0;
+          margin: 0;
+      }
+      tr{
+        padding: 10px;
+      }
+      input{
+        width: 200px;
+      border-radius: 10px;
+      height: 25px;
+      }
+    </style>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <div class='navbar'>
+    <p>
+      <div>
+
+          <div>
+              <form id="Edit" method="post" action="/edit/<%=datauser[0].user_id%>">
+              <ul><label>User Name:</label><br>
+                        <input id="username" type="text" name="inUser" value="<%=datauser[0].name%>"></ul>
+                        <ul><label>Password:</label><br>
+                          <input id="password" type="password" name="inPassword"></ul>
+                          <ul><label>Email:</label><br>
+                              <input id="email" type="text" name="inEmail" value="<%=datauser[0].email%>"></ul>
+                      <ul>
+                          		<input type="submit" name="update" value='Updated' onClick="return confirm('Are you sure you want to update id = <%= datauser[0].user_id %> ?') " />
+                      </ul>
+              </form>
+                      </div>
+
+
+        </div>
+
+      </div>
+
+    </p>
+    </div>
+</body>
+<script>
+
+</script>
+</html>

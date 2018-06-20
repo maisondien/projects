@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+      th{
+        padding: 0 ;
+        border: solid;
+      }
+      td{
+        border: solid 1px;
+          padding: 0;
+          margin: 0;
+      }
+      tr{
+        padding: 10px;
+      }
+      input{
+        width: 200px;
+      border-radius: 10px;
+      height: 25px;
+      }
+    </style>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <div class='navbar'>
+    <p>
+        <a href='/index'>INSERT DATA INTO MYSQL</a><br>
+        <div>
+            <form id="insdata" method="post" action="/insert">
+                <div>
+                      <ul><label>User Name:</label><br>
+                        <input id="username" type="text" name="inUser"></ul>
+                        <ul><label>Password:</label><br>
+                          <input id="password" type="password" name="inPassword"></ul>
+                          <ul><label>Email:</label><br>
+                            <input id="email" type="text" name="inEmail"></ul>
+                      <ul>  <input  type="submit" value="Submit"> </ul>
+                  </div>
+
+            </form>
+        </div>
+
+    </p>
+    </div>
+</body>
+
+</html>

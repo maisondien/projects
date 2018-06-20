@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+      th{
+        padding: 0 ;
+        border: solid;
+      }
+      td{
+        border: solid 1px;
+          padding: 0;
+          margin: 0;
+      }
+      tr{
+        padding: 10px;
+      }
+      input{
+        width: 200px;
+      border-radius: 10px;
+      height: 25px;
+      }
+    .outputImage{
+      height:200;
+      width:200;
+      margin-left:20
+    }
+        </style>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <div class='navbar'>
+    <p>
+      <div>
+          <div>
+              <ul><label>Name:</label><br>
+                        <input id="name" type="text" name="inName" value="<%=data[0].product_name%>"></ul>
+                            <ul><label>Image:</label><br>
+                                    <img id="preview" src="http://localhost:4000/<%=data[0].image%>" style=" height:200; width:200; margin-left:20"  ></ul>
+                                    <ul>
+                                    <input id="file" type="file" name="inImage" onchange="loadFile(event)"></ul>
+                                    <ul><img id="output" /></ul>
+                          <ul><label>Price:</label><br>
+                              <input id="price" type="text" name="inPrice" value="<%=data[0].price%>"></ul>
+                      <ul>
+                          <form id="Edit" method="post" action="/editpro/<%=data[0].id%>">
+                          		<input id="btnupdate" type="submit" name="update" value='Updated' onClick="return confirm('Are you sure you want to update id = <%= data[0].id %> ?') " />
+                                      </form>
+                      </ul>
+
+                      </div>
+
+        </div>
+
+      </div>
+
+    </p>
+    </div>
+</body>
+<script>
+var loadFile = function(event) {
+   var output = document.getElementById('output');
+   output.src = URL.createObjectURL(event.target.files[0]);
+   if(output){
+     output.classList.add("outputImage");
+   }
+
+ };
+
+</script>
+</html>

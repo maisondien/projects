@@ -1,0 +1,109 @@
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+    body {
+      padding: 50px;
+      font: 14px "Roboto", Arial, sans-serif;
+    }
+  .errors {
+  padding: 5px;
+  margin-bottom: 10px;
+  min-width: 200px;
+  display: inline-block;
+
+}
+
+.errors ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.success {
+  background: #80cca0;
+  padding: 5px;
+}
+      th{
+        padding: 0 ;
+        border: solid;
+      }
+      td{
+        border: solid 1px;
+          padding: 0;
+          margin: 0;
+      }
+      tr{
+        padding: 10px;
+      }
+      input{
+        width: 200px;
+      border-radius: 10px;
+      height: 25px;
+      }
+
+      td{
+            margin-left: 20px;
+
+      }
+    #wrap{
+      padding: 10px;
+    }
+  input  {
+    width: 300px;
+    border-radius: 5px;
+    height: 25px;
+  }
+  p{
+    color: red;
+    font-weight: bold;
+  }
+    </style>
+</head>
+<body>
+    <h1><%= title %></h1>
+<%if (success) { %>
+    <section class="success">
+           <h2>Successful Validation!</h2>
+       </section>
+
+  <% } else { %>
+  <% if (errors) {%>
+       <section class="errors">
+           <ul>
+               <% errors.forEach(function(error){ %>
+                   <li><p><%=error.msg%></p></li>
+            <% }); %>
+           </ul>
+       </section>
+     <% }
+   } %>
+    <table>
+      <td>
+    <div class='navbar'>
+    <p>
+        <a href='/showdata'>INSERT USER</a></p><br>
+        <div id="wrap">
+            <form id="insdata" method="post" action="/insert">
+                <div>
+                      <ul><label>User Name:</label><br>
+                        <input id="inUser" type="text" name="inUser"></ul>
+                        <ul><label>Password:</label><br>
+                          <input id="inPassword" type="password" name="inPassword"></ul>
+                          <ul><label>Email:</label><br>
+                            <input id="inEmail" type="text" name="inEmail"></ul>
+                      <ul>  <input type="submit" value="Submit"> </ul>
+                  </div>
+
+            </form>
+        </div>
+      </td>
+</table>
+
+</body>
+
+
+
+
+</html>
