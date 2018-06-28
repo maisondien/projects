@@ -35,7 +35,7 @@ conn.query("SELECT * FROM tbl_brands ORDER BY id ASC;", function(err, rows, res)
               res = JSON.stringify(datacate);
       }
     });
-    conn.query("SELECT * FROM tbl_products ORDER BY id ASC;", function(err, rows, res){
+    conn.query("SELECT tbl_products.id, tbl_products.product_name, tbl_products.image, tbl_products.price, tbl_categories.name  FROM tbl_products LEFT JOIN tbl_categories on tbl_products.category_id = tbl_categories.id;", function(err, rows, res){
             if(rows.length != 0){
           data = rows;
           res = JSON.stringify(data);
