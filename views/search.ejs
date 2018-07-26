@@ -2,7 +2,8 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/javascripts/paging.js"></script>
+<script src="javascripts/paging.js"></script>
+
 <style>
 * {
   box-sizing: border-box;
@@ -122,7 +123,8 @@ td, th {
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #f2f2f2;
+
 }
 .pagination {
     display: inline-block;
@@ -176,7 +178,7 @@ padding: 2px 4px 2px 4px;
                     <img id="imgid" style="cursor:pointer; width: 30px;  height: 30px; float:left;  position: relative;" src="http://localhost:4000/search.png">
                     <input id="search" class="insearch" type="text" name"search" placeholder="Tìm kiếm..."></td></div>
                 <td>
-                  <select id = "searchop" class="izHAUZ" name="selectbr" >
+                  <select id="sea" class="izHAUZ" name="selectbr" data-col="5" >
                       <option selected disabled>Choose Brand</option>
                     <% for (var i = 0; i < databrand.length; i++) { %>
                           <option name="brandopt" value="<%= databrand[i].name%>" selected="selected"><%= databrand[i].name %></option>
@@ -184,8 +186,8 @@ padding: 2px 4px 2px 4px;
                   </select>
                 </td>
                 <td>
-                  <select class="izHAUZ" name="selectcate" >
-                    <option selected disabled>Choose Catalog</option>
+                  <select  id="searchop" class="izHAUZ filter" name="selectcate" data-col="5" >
+                    <option value="">Catalog</option>
                     <% for (var i = 0; i < datacate.length; i++) { %>
                     <option name="cateopt" value="<%= datacate[i].id%>" selected="selected"><%= datacate[i].name %></option>
                       <% } %>
@@ -195,7 +197,6 @@ padding: 2px 4px 2px 4px;
                 </tr>
               </table>
 </form>
-    <div><input id="searchbtn" type="submit" value="Search" ></div>
 <div id= "display" style="margin-top:10px">
       <table id="tablepaging" style="width:800px">
         <thead>
@@ -232,23 +233,75 @@ padding: 2px 4px 2px 4px;
 </body>
 
 <script>
-
-
-var pager = new Pager('tablepaging', 3);
+var pager = new Pager('tablepaging', 5);
 pager.init();
 pager.showPageNav('pager', 'pageNavPosition');
 pager.showPage(1);
-$(document).ready(function(){
 
-      $('#search').keyup(function(){
-            search_table($(this).val());
-    });
+$(document).ready(function(){
+  $('#imgid').click(function(){
+  var data =  $('#search').val();
+      search_table(data);
+  });
+
+  $('.filter').change(function () {
+      var values = [];
+
+       $('.filter').each(function () {
+          var colIdx = $(this).data('col');
+
+           $(this).find('option:selected').each(function () {
+
+               if ($(this).val() != "") values.push( {
+                  text: $(this).text(),
+                  colId : colIdx
+               });
+          });
+      });
+      var dataset = $('#tablepaging tbody').find('tr');
+
+  //    filter('table > tbody > tr', values);
+      filter(dataset, values);
+  });
+
+  function filter(selector, values) {console.log(values);
+      $(selector).each(function () {
+          var sel = $(this);
+          var tokens = sel.text().trim().split('\n');
+          var toknesObj = [], i;
+          for(i=0;i<tokens.length;i++){
+              toknesObj[i] = {
+                 text:tokens[i].trim(),
+                 found:false
+              };
+          }
+
+          var show = false;
+          //console.log(toknesObj);
+          $.each(values, function (i, val) {
+
+         if (toknesObj[val.colId].text.search(new RegExp("\\b"+val.text+"\\b")) >= 0) {
+             toknesObj[val.colId].found = true;
+            }
+
+          });
+          console.log(toknesObj);
+          var count = 0;
+           $.each(toknesObj, function (i, val) {
+               if (val.found){
+                   count+=1;
+               }
+           });
+          show = (count === values.length);
+          show ? sel.show() : sel.hide();
+      });
+  }
+  });
 
     function search_table(value){
-
-      $('#tablepaging tr').each(function(){
+      $('#tablepaging tbody tr').each(function(){
         var found = 'false';
-          $(this).each(function(){
+      $(this).each(function(){
         if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
         {
           found = 'true';
@@ -258,18 +311,10 @@ $(document).ready(function(){
           $(this).show();
       }else{
         $(this).hide();
-      return false;
       }
     });
-    }
+}
 
-$("#searchop").on("change", function(){
-
-
-})
-
-
-});
 
 
 </script>

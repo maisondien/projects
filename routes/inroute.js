@@ -38,7 +38,6 @@ conn.query("Insert into tbl_users (name, password, email, created_at) Values ('"
         console.log("insert success");
        });
        res.redirect('/showdata');
-
      }
 console.log(errors);
  res.redirect('/insert');

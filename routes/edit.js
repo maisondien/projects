@@ -49,12 +49,12 @@ router.get('/(:user_id)', function(req, result) {
     console.log(req.body.inUser);  // use the generateHash function in our user mode
     console.log(req.body.inPassword);
     console.log(req.body.inEmail);
-var data = {
-name : req.body.inUser,
-password : req.body.inPassword,
-email : req.body.inEmail,
-updated_at : formatted
-}
+          var data = {
+          name : req.body.inUser,
+          password : req.body.inPassword,
+          email : req.body.inEmail,
+          updated_at : formatted
+          }
 if (data.name == "" || data.password == "" || data.email == "")
   {
     console.log("please input data ");

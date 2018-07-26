@@ -8,27 +8,10 @@ router.get('/', function(req, res) {
   res.render('login', { title: 'Login' });
 
 });
-function checkSignIn(req, res){
-   if(req.session.user){
-      next();     //If session exists, proceed to page
-   } else {
-      var err = new Error("Not logged in!");
-      console.log(req.session.user);
-      next(err);  //Error, trying to access unauthorized page!
-   }
-}
 router.post('/', function(req, res) {
-  console.log(Users);
-  if(req.body.email==""|| req.body.password==""){
-        console.log("please input data to text field");
-        } else {
-     Users.filter(function(user){
-        if(user.id === req.body.id && user.password === req.body.password){
-           req.session.user = user;
-           res.redirect('/showdata');
-        }
-     });
-     res.render('login', {message: "Invalid credentials!"});
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
   }
 });
 module.exports = router;

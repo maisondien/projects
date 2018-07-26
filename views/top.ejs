@@ -2,6 +2,38 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+    img{
+    width: 480px;
+height: 480px;
+}
+a{
+  padding: .5em 1.2em;
+      border: 1px solid #795548;
+      border-radius: 3px;
+      box-shadow: 0 3px 0 rgb(255, 244, 244);
+      vertical-align: baseline;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+      font-weight: 500;
+      font-size: 16px;
+      cursor: pointer;
+      zoom: 1;
+      display: inline-block;
+
+}
+.pr_detail{
+  float: left;
+  position: relative;
+  width:40%;
+  top: 100px;
+}
+.pr_img{
+  float:left;
+  width: 30%;
+}
+    </style>
 </head>
 <body>
     <h1><%= title %></h1>
@@ -9,4 +41,15 @@
     <p>
         <a href='/index'>Home</a> | <a href='/login'>Login</a> | <a href='/showdata'>Loading data</a> | <a href='/insert'>Insert Data</a>| <a href='/insertpro'>Insert Product</a>| <a href='/search'>Search Product</a>
     </p>
-    </div>
+
+    <div id="product">
+          <div id="image" class="pr_img">
+                <img src="http://localhost:4000/636645827453403886_1.jpg" height="100" width="100">
+          </div>
+            <div id="detail" class="pr_detail">
+              <p>Price: 1200000</p>
+              <a>Buy It Now</a>
+              				</div>
+		                      </div>
+
+                   </div>

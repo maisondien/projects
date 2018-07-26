@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="javascripts/paging.js"></script>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1f1f1;
+}
+
+#wrap{
+  width:1200px;
+  margin: 0 auto;
+}
+.izHAUZ {
+    width: 240px;
+    height: 40px;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #cacaca;
+    border-radius: 4px;
+    position: relative;
+    font-size: 18px;
+
+  }
+    .search {
+      width: 330px;
+        height: 40px;
+        background: #ffffff;
+        border: 1px solid #cacaca;
+        border-radius: 4px;
+        position: relative;
+        padding: 5px;}
+    .insearch{
+      width: 280px;
+      height: 30px;
+      cursor: pointer;
+      background: #ffffff;
+      border: none;
+      float: right;
+
+      position: relative;}
+    }
+    td{
+        padding: 2px;
+    }
+    .elBMaf {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    margin: 12px 10px;}
+    img{
+      vertical-align: middle;
+    }
+    .fVsWNK {
+      position: absolute;
+      right: 0;
+      width: 16px;
+      height: 16px;
+      margin: 12px 10px;}
+
+    .kISsLg {
+    line-height: 40px;
+    margin-left: 35px;
+    max-width: 166.4px;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: Helvetica;
+    font-size: 14px;
+    position: absolute;}
+    .showdown{
+      width: 250px;
+      position: absolute;
+      background-color: white;
+      top: 42px;
+      left: 5px;
+      display: none;
+      border-radius: 5px;
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 10px 0px;
+    }
+    .showdown2{
+      width: 250px;
+      position: absolute;
+      background-color: white;
+      top: 42px;
+      left: 5px;
+      display: none;
+      border-radius: 5px;
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 10px 0px;
+    }
+li{
+  padding: 5px;
+    border-bottom: 1px solid;
+    border-color: #dacbcb;
+    margin-right: 10px;
+}
+li:hover{
+  background-color: #f5f5f5;
+}
+
+.popup{
+  display :block;
+  color: red;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+.pg-normal {
+color: #000000;
+font-size: 17px;
+cursor: pointer;
+background: #f2f2f2;
+padding: 2px 4px 2px 4px;
+}
+.pg-normal:hover{
+-webkit-text-fill-color: rgba(255, 0, 0, 0.9);
+}
+.odd{
+  background: #CCFFEB;
+  }
+.even{
+  background: #99FFD6;
+}
+</style>
+
+
+<body>
+  <!-- One "tab" for each step in the form: -->
+
+<div id="wrap">
+    <h1>Search:</h1>
+    <form id="formdata" method="get" action="/search" enctype="multipart/form-data">
+                  <table>
+                <tr>
+                  <td><div class="search">
+                    <img id="imgid" style="cursor:pointer; width: 30px;  height: 30px; float:left;  position: relative;" src="http://localhost:4000/search.png">
+                    <input id="search" class="insearch" type="text" name"search" placeholder="Tìm kiếm..."></td></div>
+                <td>
+                  <select id="sea" class="izHAUZ" name="selectbr" >
+                      <option selected disabled>Choose Brand</option>
+                    <% for (var i = 0; i < databrand.length; i++) { %>
+                          <option name="brandopt" value="<%= databrand[i].name%>" selected="selected"><%= databrand[i].name %></option>
+                      <% } %>
+                  </select>
+                </td>
+                <td>
+                  <select  id="searchop" class="izHAUZ" name="selectcate" >
+                    <option selected disabled>Choose Catalog</option>
+                    <% for (var i = 0; i < datacate.length; i++) { %>
+                    <option name="cateopt" value="<%= datacate[i].id%>" selected="selected"><%= datacate[i].name %></option>
+                      <% } %>
+                  </select>
+                </td>
+
+                </tr>
+              </table>
+</form>
+    <div><input id="searchbtn" type="submit" value="Search" ></div>
+<div id= "display" style="margin-top:10px">
+      <table id="tablepaging" style="width:800px">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Thumbnail</th>
+          <th>Price</th>
+          <th>Categories</th>
+          <th>Function</th>
+        </tr>
+        </thead>
+        <tbody>
+
+    <% for (var i = 0; i < data.length; i++) { %>
+      <tr>
+        <td><%= data[i].id %></td>
+        <td><%= data[i].product_name %></td>
+          <td><%= data[i].image%></td>
+          <td><img src="http://localhost:4000/<%=data[i].image%>" height="100" width="100"></td>
+        <td><%= data[i].price %></td>
+        <td><%= data[i].name %></td></tr>
+        <% } %>
+
+  </tbody>
+  </table>
+
+</div>
+
+<div id="pageNavPosition" style="padding-top: 20px" align="center">
+</div>
+
+</body>
+
+<script>
+var pager = new Pager('tablepaging', 5);
+pager.init();
+pager.showPageNav('pager', 'pageNavPosition');
+pager.showPage(1);
+
+$(document).ready(function(){
+  $('#search').keyup(function(){
+        search_table($(this).val());
+  });
+
+      $('#searchop').change(function(){
+         console.clear();
+        var selection = $(this).val();
+        if(selection){
+        var dataset = $('#tablepaging').find('tr');
+        dataset.show();
+        dataset.filter(function(index, item) {
+          return $(item).find('td:eq(5)').text().split(',').indexOf(selection) === -1;
+            }).hide();
+          }
+       });
+});
+  function select_table(value){
+      var found = 'false';
+        $('#tablepaging tr').each(function() {
+    //    var customerId = $(this).find("td").eq(5).html();
+          $(this).each(function(){
+            if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0){
+              found ='true';
+            }
+          });
+          if (found == 'true'){
+              $(this).show();
+          }else{
+            $(this).hide();
+          }
+        });
+      }
+    function search_table(value){
+      $('#tablepaging tr').each(function(){
+        var found = 'false';
+      $(this).each(function(){
+        if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+        {
+          found = 'true';
+        }
+      });
+      if (found == 'true'){
+          $(this).show();
+      }else{
+        $(this).hide();
+      }
+    });
+}
+</script>
+</html>
